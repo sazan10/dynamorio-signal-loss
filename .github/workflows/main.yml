@@ -19,6 +19,14 @@ jobs:
           # tar -xzf DynamoRIO-Linux-6.0.0-6.tar.gz
           wget https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-10.91.19860/DynamoRIO-Linux-10.91.19860.tar.gz
           tar -xzf DynamoRIO-Linux-10.91.19860.tar.gz
+      - name: Disable Address Space Randomization
+        if: runner.os == 'Linux'
+        run: sudo sysctl -w kernel.randomize_va_space=0
+      
+      - name: Disable swapping 
+        if: runner.os == 'Linux' 
+        run: sudo swapoff -a
+
       - name: Build the test program
         run: |
           ls -l
