@@ -1,0 +1,30 @@
+name: Reproduce Signal Loss Issue
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake dynamorio
+
+      - name: Build the test program
+        run: |
+          mkdir build
+          cd build
+          # Compile the test program
+          g++ -o signal_test ../signal_test.cpp -lpthread
+
+      - name: Run test program with DynamoRIO
+        run: |
+          # Run the test program multiple times to reproduce the signal loss issue
+          for i in {1..100}; do
+            echo "Run $i"
+            drrun -- ./signal_test || echo "Signal lost on run $i"
+          done
