@@ -21,10 +21,12 @@ jobs:
           export PATH=$PATH:$DYNAMORIO_HOME/bin64
       - name: Build the test program
         run: |
+          ls -l
           mkdir build
           cd build
           # Compile the test program
           g++ -o signal_test ../signal_test.cpp -lpthread
+          ls -l
 
       - name: Run test program with DynamoRIO
         run: |
