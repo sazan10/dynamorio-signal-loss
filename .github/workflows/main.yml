@@ -16,8 +16,8 @@ jobs:
       - name: Download DynamoRIO
         run: |
           wget https://github.com/DynamoRIO/dynamorio/releases/download/release_6_0_0/DynamoRIO-Linux-6.0.0-6.tar.gz
-          tar -xzf DynamoRIO-Linux-6.0.0-6tar.gz
-          export DYNAMORIO_HOME=$PWD/DynamoRIO-Linux-10.93.19944
+          tar -xzf DynamoRIO-Linux-6.0.0-6.tar.gz
+          export DYNAMORIO_HOME=$PWD/DynamoRIO-Linux-6.0.0-6
           export PATH=$PATH:$DYNAMORIO_HOME/bin64
       - name: Build the test program
         run: |
