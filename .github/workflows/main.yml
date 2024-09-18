@@ -33,5 +33,5 @@ jobs:
           # Run the test program multiple times to reproduce the signal loss issue
           for i in {1..100}; do
             echo "Run $i"
-            ./DynamoRIO-Linux-6.0.0-6/bin64/drrun -- ./signal_test || echo "Signal lost on run $i"
+            ./DynamoRIO-Linux-6.0.0-6/bin64/drrun -- ./build/signal_test || echo "Signal lost on run $i"
           done
