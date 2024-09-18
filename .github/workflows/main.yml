@@ -15,10 +15,10 @@ jobs:
           sudo apt-get install -y build-essential cmake
       - name: Download DynamoRIO
         run: |
-          wget https://github.com/DynamoRIO/dynamorio/releases/download/release_6_0_0/DynamoRIO-Linux-6.0.0-6.tar.gz
-          tar -xzf DynamoRIO-Linux-6.0.0-6.tar.gz
-          export DYNAMORIO_HOME=$PWD/DynamoRIO-Linux-6.0.0-6
-          export PATH=$PATH:$DYNAMORIO_HOME/bin64
+          # wget https://github.com/DynamoRIO/dynamorio/releases/download/release_6_0_0/DynamoRIO-Linux-6.0.0-6.tar.gz
+          # tar -xzf DynamoRIO-Linux-6.0.0-6.tar.gz
+          wget https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-10.91.19860/DynamoRIO-Linux-10.91.19860.tar.gz
+          tar -xzf DynamoRIO-Linux-10.91.19860.tar.gz
       - name: Build the test program
         run: |
           ls -l
@@ -30,8 +30,10 @@ jobs:
 
       - name: Run test program with DynamoRIO
         run: |
+          set +e
           # Run the test program multiple times to reproduce the signal loss issue
           for i in {1..100}; do
             echo "Run $i"
-            ./DynamoRIO-Linux-6.0.0-6/bin64/drrun -- ./build/signal_test || echo "Signal lost on run $i"
+            ./DynamoRIO-Linux-10.91.19860/bin64/drrun -- ./build/signal_test || echo "Signal lost on run $i"
+            # ./DynamoRIO-Linux-6.0.0-6/bin64/drrun -- ./build/signal_test || echo "Signal lost on run $i"
           done
